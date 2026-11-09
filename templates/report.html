@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block title %}BriefIQ AI Summary &amp; Report | TravelReady AI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- Action Bar -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <a href="{{ url_for('result', assessment_id=assessment.assessment_id) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Result
+                </a>
+                <div class="d-flex gap-2">
+                    <button onclick="window.print()" class="btn btn-outline-dark btn-sm rounded-pill px-3">
+                        <i class="bi bi-printer me-1"></i> Print Summary
+                    </button>
+                    <a href="{{ url_for('download_report', assessment_id=assessment.assessment_id) }}" class="btn btn-sky btn-sm rounded-pill text-white px-3 shadow-sm">
+                        <i class="bi bi-file-earmark-pdf me-1"></i> Download PDF Report
+                    </a>
+                </div>
+            </div>
+
+            <!-- BriefIQ Document Container -->
+            <div class="card border shadow-sm rounded-4 bg-white p-4 p-md-5 mb-4 position-relative">
+                
+                <!-- BriefIQ Header Banner -->
+                <div class="border-bottom pb-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                        <div>
+                            <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2">BRIEFIQ AI ENGINE</span>
+                            <h3 class="fw-extrabold text-navy mb-0">BRIEFIQ &ndash; AI SUMMARY &amp; REPORT GENERATOR</h3>
+                            <div class="text-secondary small mt-1">
+                                <strong>Document:</strong> Travel_Readiness_Assessment_Report_{{ assessment.assessment_id }}.pdf &nbsp;|&nbsp; 
+                                <strong>Analysis Type:</strong> Travel Readiness Summary
+                            </div>
+                        </div>
+                        <div class="text-end text-secondary small">
+                            <div><strong>Report Date:</strong> {{ report_date }}</div>
+                            <div><strong>Assessment ID:</strong> #{{ assessment.assessment_id }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Executive Summary Box -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy text-uppercase tracking-wider fs-xs mb-2">
+                        <i class="bi bi-card-text text-sky me-1"></i> Executive Summary
+                    </h5>
+                    <div class="p-4 bg-light rounded-3 border-start border-4 border-sky">
+                        <p class="text-secondary leading-relaxed mb-0">
+                            The traveler (<strong>{{ current_user_name }}</strong>) has performed an automated pre-departure readiness assessment for planned travel to <strong>{{ assessment.destination_country }}</strong> between <strong>{{ assessment.travel_date }}</strong> and <strong>{{ assessment.return_date }}</strong> for <strong>{{ assessment.travel_purpose }}</strong>. The supervised <strong>Decision Tree Classifier</strong> analyzed the six core pre-travel criteria and evaluated the current status as <strong>{{ assessment.prediction_result }}</strong> with a calculated compliance score of <strong>{{ assessment.readiness_score }}%</strong>. A total of <strong>{{ completed_count }} of 6 requirements</strong> are fully satisfied, leaving <strong>{{ missing_items|length }}</strong> pending item(s) requiring immediate resolution prior to departure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Metrics & KPIs Table -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy text-uppercase tracking-wider fs-xs mb-2">
+                        <i class="bi bi-speedometer2 text-sky me-1"></i> Metrics &amp; Key Performance Indicators (KPIs)
+                    </h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <tbody class="small">
+                                <tr>
+                                    <th class="w-35 bg-light text-secondary">Total Requirements Evaluated</th>
+                                    <td class="fw-bold text-navy">6 Essential Compliance Criteria</td>
+                                    <th class="w-35 bg-light text-secondary">Destination Country</th>
+                                    <td class="fw-bold text-navy">{{ assessment.destination_country }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-secondary">Completed Requirements</th>
+                                    <td class="text-success fw-bold">{{ completed_count }} Verified</td>
+                                    <th class="bg-light text-secondary">Departure Date</th>
+                                    <td class="text-navy">{{ assessment.travel_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-secondary">Missing Requirements</th>
+                                    <td class="text-danger fw-bold">{{ missing_items|length }} Pending Action</td>
+                                    <th class="bg-light text-secondary">Return Date</th>
+                                    <td class="text-navy">{{ assessment.return_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-secondary">Requirement Completion Rate</th>
+                                    <td class="fw-bold text-sky">{{ completion_percentage }}% ({{ completed_count }}/6)</td>
+                                    <th class="bg-light text-secondary">Readiness Score</th>
+                                    <td class="fw-bold {% if assessment.readiness_score >= 70 %}text-success{% else %}text-danger{% endif %}">{{ assessment.readiness_score }} / 100</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-secondary">Travel Readiness Status</th>
+                                    <td>
+                                        {% if assessment.prediction_result == 'Ready to Travel' %}
+                                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-2 py-1">Ready to Travel</span>
+                                        {% else %}
+                                            <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-2 py-1">Not Ready to Travel</span>
+                                        {% endif %}
+                                    </td>
+                                    <th class="bg-light text-secondary">Machine Learning Model</th>
+                                    <td class="text-navy">Decision Tree Classifier (Scikit-Learn)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 6 Requirements Detailed Breakdown -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy text-uppercase tracking-wider fs-xs mb-2">
+                        <i class="bi bi-shield-check text-sky me-1"></i> Pre-Travel Requirements Checklist
+                    </h5>
+                    <div class="row g-2">
+                        
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-card-heading me-1 text-sky"></i> 1. Passport Validity (&ge;6 mos)</span>
+                                {% if assessment.passport_status == 'Valid' %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-file-earmark-check me-1 text-sky"></i> 2. Destination Visa</span>
+                                {% if assessment.visa_status in ['Approved', 'Visa-Free'] %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-ticket-perforated me-1 text-sky"></i> 3. Confirmed Return Ticket</span>
+                                {% if assessment.return_ticket == 'Yes' %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-building-check me-1 text-sky"></i> 4. Hotel Accommodation</span>
+                                {% if assessment.hotel_booking == 'Yes' %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-shield-shaded me-1 text-sky"></i> 5. Travel Insurance Policy</span>
+                                {% if assessment.travel_insurance == 'Yes' %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold text-navy"><i class="bi bi-capsule me-1 text-sky"></i> 6. Mandatory Vaccinations</span>
+                                {% if assessment.vaccination_status == 'Yes' %}
+                                    <span class="badge bg-success rounded-pill px-3 py-1 small">PASS</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill px-3 py-1 small">FAIL</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Missing Requirements & Guidance -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy text-uppercase tracking-wider fs-xs mb-2">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i> Missing Requirements &amp; Guidance
+                    </h5>
+                    {% if missing_items %}
+                        <div class="d-flex flex-column gap-2">
+                            {% for m in missing_items %}
+                                <div class="p-3 bg-light rounded-3 border-start border-4 border-danger">
+                                    <strong class="text-danger small d-block"><i class="bi bi-exclamation-octagon-fill me-1"></i> Missing: {{ m }}</strong>
+                                    <span class="small text-secondary">
+                                        Must be procured and validated prior to presenting at airline check-in for travel to {{ assessment.destination_country }}.
+                                    </span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success border-0 rounded-3 mb-0 small">
+                            <i class="bi bi-check-all fs-5 me-1 text-success align-middle"></i>
+                            All six travel readiness factors are fully satisfied! No outstanding compliance requirements detected.
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Report Footer Sign-off -->
+                <div class="border-top pt-4 text-center text-secondary small">
+                    <div>Document automatically compiled by <strong>BriefIQ AI Travel Engine</strong> for <strong>{{ current_user_name }}</strong></div>
+                    <div>Bachelor of Science in AI &amp; ML Capstone Project &bull; Reg No: ASML24019</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

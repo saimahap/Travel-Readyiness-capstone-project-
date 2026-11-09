@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}About | TravelReady AI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- Header Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-navy text-white p-4 p-md-5 position-relative overflow-hidden">
+                <div class="d-inline-flex align-items-center gap-2 bg-light bg-opacity-10 border border-light border-opacity-25 rounded-pill px-3 py-1 mb-3">
+                    <span class="badge bg-warning text-dark fw-bold rounded-pill">ACADEMIC CAPSTONE</span>
+                    <span class="text-white small">Bachelor of Science in Artificial Intelligence &amp; Machine Learning</span>
+                </div>
+                <h1 class="display-5 fw-bold mb-2">Project Architecture &amp; Methodology</h1>
+                <p class="lead text-white-50 mb-0">
+                    Comprehensive documentation of the AI-Based Pre-Travel Readiness Prediction System.
+                </p>
+            </div>
+
+            <!-- Main Body -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+                <h4 class="fw-bold text-navy mb-3"><i class="bi bi-bullseye text-primary me-2"></i>Project Motivation &amp; Problem Statement</h4>
+                <p class="text-secondary leading-relaxed">
+                    International air travel is regulated by strict bilateral and multilateral entry protocols. Passengers arriving at airline check-in counters with unfulfilled prerequisites (e.g. less than six months remaining on their passport, absence of an exit ticket, or pending visa authorizations) face immediate denied boarding.
+                </p>
+                <p class="text-secondary leading-relaxed">
+                    This capstone project introduces an automated decision-support framework that bridges the information gap for travelers, delivering instant document audits, predictive risk classification, and customized corrective steps.
+                </p>
+
+                <hr class="my-4 text-muted opacity-25">
+
+                <!-- Important Disclaimer required by user prompt -->
+                <div class="alert alert-warning border-start border-4 border-warning rounded-3 p-3 mb-4">
+                    <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-shield-exclamation fs-4 text-warning"></i>
+                        <div>
+                            <strong class="d-block text-dark">Methodological Note &amp; Verification Disclaimer:</strong>
+                            <span class="small text-secondary">
+                                This system employs a supervised Machine Learning (Decision Tree) classifier to predict overall travel preparedness based on user-supplied travel parameters. The model output evaluates logical consistency and compliance rules. It does <em>not</em> claim to cryptographically authenticate actual government passport chips, visa stickers, or airline PNR records without external consular API integration.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack Cards -->
+                <h4 class="fw-bold text-navy mb-3"><i class="bi bi-layers-fill text-sky me-2"></i>Technology Stack Architecture</h4>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <h6 class="fw-bold text-navy mb-1"><i class="bi bi-cpu text-primary me-1"></i> ML Engine</h6>
+                            <ul class="list-unstyled small text-secondary mb-0">
+                                <li>Decision Tree</li>
+                                <li>Scikit-Learn</li>
+                                <li>Pandas &amp; NumPy</li>
+                                <li>Joblib Serialization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <h6 class="fw-bold text-navy mb-1"><i class="bi bi-server text-success me-1"></i> Backend</h6>
+                            <ul class="list-unstyled small text-secondary mb-0">
+                                <li>Python 3</li>
+                                <li>Flask Framework</li>
+                                <li>Session Auth</li>
+                                <li>Werkzeug Security</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <h6 class="fw-bold text-navy mb-1"><i class="bi bi-palette text-warning me-1"></i> Frontend</h6>
+                            <ul class="list-unstyled small text-secondary mb-0">
+                                <li>HTML5 &amp; CSS3</li>
+                                <li>Bootstrap 5.3</li>
+                                <li>JavaScript</li>
+                                <li>Plus Jakarta Sans</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <h6 class="fw-bold text-navy mb-1"><i class="bi bi-database text-info me-1"></i> Database</h6>
+                            <ul class="list-unstyled small text-secondary mb-0">
+                                <li>MySQL Relational</li>
+                                <li>SQLite Fallback</li>
+                                <li>Foreign Keys</li>
+                                <li>Parameterized SQL</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Credentials Table -->
+                <h4 class="fw-bold text-navy mb-3"><i class="bi bi-mortarboard-fill text-primary me-2"></i>Student &amp; Course Credentials</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <tbody>
+                            <tr>
+                                <th class="w-30 bg-light text-secondary">Project Title</th>
+                                <td class="fw-bold text-navy">AI-Based Pre-Travel Readiness Prediction System Using Machine Learning</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-secondary">Student Name</th>
+                                <td class="fw-semibold">M. Maha Lakshmi</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-secondary">Register Number</th>
+                                <td><code>ASML24019</code></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-secondary">Degree Program</th>
+                                <td>Bachelor of Science in Artificial Intelligence and Machine Learning</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-secondary">Development Phase</th>
+                                <td>Final Functional System &amp; BriefIQ Report Generator</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
