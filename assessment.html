@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}Travel Readiness Assessment Form | TravelReady AI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- Title Header Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-navy text-white p-4 p-md-5 position-relative overflow-hidden">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2">DECISION TREE AUDIT</span>
+                        <h2 class="display-6 fw-bold mb-2">Travel Readiness Assessment</h2>
+                        <p class="text-white-50 mb-0">
+                            Enter your trip specifics and verification status for all 6 core travel requirements. Our AI model will calculate your readiness status and pinpoint any missing prerequisites.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-center d-none d-lg-block">
+                        <i class="bi bi-airplane text-white-50" style="font-size: 6rem; opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-sm rounded-4 bg-white p-4 p-md-5">
+                <form action="{{ url_for('assessment') }}" method="POST" id="assessmentForm">
+                    
+                    <!-- Section 1: Trip & Traveler Information -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-sky text-white rounded-circle p-2" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;">1</span>
+                        <h5 class="fw-bold text-navy mb-0">Personal &amp; Trip Details</h5>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label for="destination_country" class="form-label small fw-semibold">Destination Country / Region *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-geo-alt text-sky"></i></span>
+                                <input type="text" class="form-control border-start-0" id="destination_country" name="destination_country" placeholder="e.g. France, United Kingdom, Singapore, UAE" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="travel_purpose" class="form-label small fw-semibold">Purpose of Travel *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-briefcase text-sky"></i></span>
+                                <select class="form-select border-start-0" id="travel_purpose" name="travel_purpose" required>
+                                    <option value="Tourism" selected>Tourism / Leisure</option>
+                                    <option value="Business">Business / Conference</option>
+                                    <option value="Education">Education / Student</option>
+                                    <option value="Transit">Transit</option>
+                                    <option value="Family Visit">Family / Personal Visit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="travel_date" class="form-label small fw-semibold">Planned Departure Date *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-calendar-event text-sky"></i></span>
+                                <input type="date" class="form-control border-start-0" id="travel_date" name="travel_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="return_date" class="form-label small fw-semibold">Planned Return Date *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-calendar-check text-sky"></i></span>
+                                <input type="date" class="form-control border-start-0" id="return_date" name="return_date" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 text-muted opacity-25">
+
+                    <!-- Section 2: Six Travel Readiness Factors -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-sky text-white rounded-circle p-2" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;">2</span>
+                        <h5 class="fw-bold text-navy mb-0">Pre-Travel Requirements Verification</h5>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+
+                        <!-- Factor 1: Passport Validity -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-card-heading text-sky me-1"></i> 1. Passport Validity
+                                </label>
+                                <div class="mb-2">
+                                    <span class="small text-secondary d-block mb-1">Do you possess an active passport?</span>
+                                    <div class="btn-group w-100" role="group">
+                                        <input type="radio" class="btn-check" name="passport_status" id="pass_valid" value="Valid" checked>
+                                        <label class="btn btn-outline-success" for="pass_valid"><i class="bi bi-check-lg me-1"></i> Valid Passport</label>
+
+                                        <input type="radio" class="btn-check" name="passport_status" id="pass_invalid" value="Invalid">
+                                        <label class="btn btn-outline-danger" for="pass_invalid"><i class="bi bi-x-lg me-1"></i> Expired / None</label>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="passport_expiry_date" class="form-label small text-secondary mb-1">Passport Expiration Date *</label>
+                                    <input type="date" class="form-control" id="passport_expiry_date" name="passport_expiry_date" required>
+                                    <small class="form-text text-muted fs-xs">Must have &ge;6 months validity from departure date.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Factor 2: Visa Availability -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-file-earmark-check text-sky me-1"></i> 2. Visa Availability
+                                </label>
+                                <span class="small text-secondary d-block mb-1">Status of required entry authorization:</span>
+                                <div class="mb-2">
+                                    <select class="form-select" id="visa_status" name="visa_status" required>
+                                        <option value="Approved" selected>Approved Visa / Valid eVisa</option>
+                                        <option value="Visa-Free">Visa-Free Country Agreement</option>
+                                        <option value="Pending">Application Pending / Processing</option>
+                                        <option value="None">Not Applied / Rejected</option>
+                                    </select>
+                                </div>
+                                <small class="form-text text-muted fs-xs">Choose 'Approved' or 'Visa-Free' if entry is guaranteed.</small>
+                            </div>
+                        </div>
+
+                        <!-- Factor 3: Return Ticket -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-ticket-perforated text-sky me-1"></i> 3. Return / Onward Ticket
+                                </label>
+                                <span class="small text-secondary d-block mb-2">Confirmed return or transit flight booked?</span>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="return_ticket" id="ticket_yes" value="Yes" checked>
+                                    <label class="btn btn-outline-success" for="ticket_yes"><i class="bi bi-check-lg me-1"></i> Confirmed Ticket</label>
+
+                                    <input type="radio" class="btn-check" name="return_ticket" id="ticket_no" value="No">
+                                    <label class="btn btn-outline-danger" for="ticket_no"><i class="bi bi-x-lg me-1"></i> Not Booked</label>
+                                </div>
+                                <small class="form-text text-muted fs-xs d-block mt-2">Mandatory proof of exit for border control.</small>
+                            </div>
+                        </div>
+
+                        <!-- Factor 4: Hotel Booking -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-building-check text-sky me-1"></i> 4. Hotel Accommodation
+                                </label>
+                                <span class="small text-secondary d-block mb-2">Confirmed lodging or formal host invitation?</span>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="hotel_booking" id="hotel_yes" value="Yes" checked>
+                                    <label class="btn btn-outline-success" for="hotel_yes"><i class="bi bi-check-lg me-1"></i> Booked &amp; Confirmed</label>
+
+                                    <input type="radio" class="btn-check" name="hotel_booking" id="hotel_no" value="No">
+                                    <label class="btn btn-outline-danger" for="hotel_no"><i class="bi bi-x-lg me-1"></i> Not Confirmed</label>
+                                </div>
+                                <small class="form-text text-muted fs-xs d-block mt-2">Required for immigration address registration.</small>
+                            </div>
+                        </div>
+
+                        <!-- Factor 5: Travel Insurance -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-shield-shaded text-sky me-1"></i> 5. Travel Medical Insurance
+                                </label>
+                                <span class="small text-secondary d-block mb-2">Active international travel medical insurance?</span>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="travel_insurance" id="ins_yes" value="Yes" checked>
+                                    <label class="btn btn-outline-success" for="ins_yes"><i class="bi bi-check-lg me-1"></i> Active Policy</label>
+
+                                    <input type="radio" class="btn-check" name="travel_insurance" id="ins_no" value="No">
+                                    <label class="btn btn-outline-danger" for="ins_no"><i class="bi bi-x-lg me-1"></i> None</label>
+                                </div>
+                                <small class="form-text text-muted fs-xs d-block mt-2">Required by Schengen zone, UAE, and recommended globally.</small>
+                            </div>
+                        </div>
+
+                        <!-- Factor 6: Vaccination Status -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light h-100">
+                                <label class="form-label fw-bold d-block text-navy">
+                                    <i class="bi bi-capsule text-sky me-1"></i> 6. Vaccination / Health Clearance
+                                </label>
+                                <span class="small text-secondary d-block mb-2">All destination-mandated immunizations completed?</span>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="vaccination_status" id="vac_yes" value="Yes" checked>
+                                    <label class="btn btn-outline-success" for="vac_yes"><i class="bi bi-check-lg me-1"></i> Completed</label>
+
+                                    <input type="radio" class="btn-check" name="vaccination_status" id="vac_no" value="No">
+                                    <label class="btn btn-outline-danger" for="vac_no"><i class="bi bi-x-lg me-1"></i> Incomplete</label>
+                                </div>
+                                <small class="form-text text-muted fs-xs d-block mt-2">e.g. Yellow Fever certificate, COVID-19 compliance.</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Submission & Reset Buttons -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3 pt-3 border-top">
+                        <button type="submit" class="btn btn-sky btn-lg px-5 py-3 rounded-pill text-white fw-bold shadow-sm">
+                            <i class="bi bi-lightning-charge-fill me-2 text-warning"></i> Submit &amp; Evaluate Readiness
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Form
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | TravelReady AI - Pre-Travel Readiness Prediction System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-wrapper position-relative">
+    <div class="hero-glow"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center g-5 py-md-4">
+            <div class="col-lg-7">
+                <div class="d-inline-flex align-items-center gap-2 bg-light bg-opacity-10 border border-light border-opacity-25 rounded-pill px-3 py-1 mb-3">
+                    <span class="badge bg-warning text-dark fw-bold rounded-pill">AI POWERED</span>
+                    <span class="text-white small">Machine Learning Pre-Travel Decision Support</span>
+                </div>
+                <h1 class="display-4 fw-extrabold text-white mb-3 tracking-tight">
+                    Travel Smart. <span class="text-sky">Travel Prepared.</span>
+                </h1>
+                <p class="lead text-light text-opacity-80 mb-4">
+                    Avoid airport check-in surprises, denied boarding, and costly delays. Our AI-based prediction system analyses your essential travel credentials against international standards before departure.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    {% if logged_in %}
+                        <a href="{{ url_for('assessment') }}" class="btn btn-sky btn-lg px-4 py-3 rounded-pill text-white shadow-sm">
+                            <i class="bi bi-speedometer2 me-2"></i> Start Travel Assessment
+                        </a>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-person me-2"></i> Open Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('register') }}" class="btn btn-sky btn-lg px-4 py-3 rounded-pill text-white shadow-sm">
+                            <i class="bi bi-person-plus-fill me-2"></i> Register
+                        </a>
+                        <a href="#about" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-arrow-down-circle me-2"></i> Learn More
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- Trust Micro-Badges -->
+                <div class="row g-3 mt-4 pt-3 border-top border-light border-opacity-10 text-white-50 small">
+                    <div class="col-auto d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-sky"></i> 6 Regulatory Factors
+                    </div>
+                    <div class="col-auto d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-sky"></i> Decision Tree ML
+                    </div>
+                    <div class="col-auto d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-sky"></i> BriefIQ PDF Reports
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 text-center">
+                <div class="hero-icon-box shadow-lg">
+                    <i class="bi bi-passport"></i>
+                </div>
+                <div class="card bg-navy-light text-white p-4 border border-light border-opacity-10 rounded-4 text-start shadow-lg">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-success-subtle text-success border border-success px-3 py-1 rounded-pill fw-semibold">
+                            <i class="bi bi-shield-check me-1"></i> Readiness Status
+                        </span>
+                        <small class="text-white-50">Scikit-learn Model</small>
+                    </div>
+                    <h5 class="fw-bold mb-1">Pre-Departure Audit Preview</h5>
+                    <p class="small text-white-50 mb-3">Instant detection of missing credentials &amp; passport expiry alerts.</p>
+                    
+                    <div class="d-flex flex-column gap-2 small">
+                        <div class="d-flex justify-content-between p-2 rounded bg-dark bg-opacity-25">
+                            <span><i class="bi bi-card-checklist text-sky me-2"></i>Passport Validity (&ge;6 mos)</span>
+                            <span class="text-success fw-bold"><i class="bi bi-check-lg"></i> Verified</span>
+                        </div>
+                        <div class="d-flex justify-content-between p-2 rounded bg-dark bg-opacity-25">
+                            <span><i class="bi bi-file-earmark-check text-sky me-2"></i>Destination Entry Visa</span>
+                            <span class="text-success fw-bold"><i class="bi bi-check-lg"></i> Approved</span>
+                        </div>
+                        <div class="d-flex justify-content-between p-2 rounded bg-dark bg-opacity-25">
+                            <span><i class="bi bi-shield-shaded text-sky me-2"></i>Medical Travel Insurance</span>
+                            <span class="text-warning fw-bold"><i class="bi bi-exclamation-triangle"></i> Recommended</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-5 bg-white" id="about">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="text-sky text-uppercase fw-bold fs-xs tracking-wider">About The System</span>
+                <h2 class="fw-bold text-navy mt-1 mb-3">Why Pre-Travel Verification Matters</h2>
+                <p class="text-secondary leading-relaxed">
+                    International border control and airline regulations have become significantly more stringent. Every year, thousands of passengers face denied boarding at departure gates due to overlooked requirements—such as passports expiring in under six months, unverified visas, lack of onward exit tickets, or absent travel medical insurance.
+                </p>
+                <p class="text-secondary leading-relaxed">
+                    The <strong>AI-Based Pre-Travel Readiness Prediction System</strong> provides travellers and travel coordinators with a streamlined, intelligent pre-flight evaluation. By feeding key travel credentials through a supervised <strong>Decision Tree Classifier</strong>, the system identifies missing prerequisites in seconds and equips you with actionable remediation advice.
+                </p>
+                <div class="row g-3 mt-2">
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-sky-soft rounded-3 border border-sky border-opacity-25">
+                            <h4 class="fw-bold text-navy mb-1">100%</h4>
+                            <div class="small text-secondary">Decision Tree Training Accuracy</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-sky-soft rounded-3 border border-sky border-opacity-25">
+                            <h4 class="fw-bold text-navy mb-1">&lt; 1 Sec</h4>
+                            <div class="small text-secondary">Instant AI Assessment &amp; PDF</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="p-4 p-md-5 bg-light rounded-4 border">
+                    <h5 class="fw-bold text-navy mb-3"><i class="bi bi-award-fill text-warning me-2"></i>Capstone Project Background</h5>
+                    <p class="small text-secondary mb-3">
+                        Developed as a core Capstone Project in the Bachelor of Science in Artificial Intelligence and Machine Learning curriculum.
+                    </p>
+                    <ul class="list-unstyled small text-secondary d-flex flex-column gap-2 mb-4">
+                        <li><i class="bi bi-person-fill text-sky me-2"></i><strong>Candidate:</strong> M. Maha Lakshmi</li>
+                        <li><i class="bi bi-hash text-sky me-2"></i><strong>Register Number:</strong> ASML24019</li>
+                        <li><i class="bi bi-mortarboard-fill text-sky me-2"></i><strong>Degree:</strong> B.Sc. Artificial Intelligence &amp; Machine Learning</li>
+                        <li><i class="bi bi-cpu-fill text-sky me-2"></i><strong>Core Model:</strong> Supervised Decision Tree Classifier</li>
+                        <li><i class="bi bi-database-fill text-sky me-2"></i><strong>Database:</strong> MySQL Relational Architecture</li>
+                    </ul>
+                    <a href="{{ url_for('about') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                        Read Academic Project Details <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section (8 Feature Cards) -->
+<section class="py-5 bg-sky-soft" id="features">
+    <div class="container py-4">
+        <div class="text-center max-w-xl mx-auto mb-5">
+            <span class="text-sky text-uppercase fw-bold fs-xs tracking-wider">Features</span>
+            <h2 class="fw-bold text-navy mt-1">Complete Pre-Departure Travel Coverage</h2>
+            <p class="text-secondary">Comprehensive multi-point validation to ensure full compliance before heading to the airport.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- 1. Passport Validity -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-card-heading"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Passport Validity Verification</h5>
+                    <p class="small text-secondary mb-0">
+                        Evaluates passport expiry against your flight departure date to enforce the mandatory international 6-month rule.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. Visa Availability -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Visa Availability Check</h5>
+                    <p class="small text-secondary mb-0">
+                        Verifies approved visas, eVisa validity, and visa-free travel eligibility for your specified destination country.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3. Return Ticket Verification -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-ticket-perforated"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Return Ticket Verification</h5>
+                    <p class="small text-secondary mb-0">
+                        Ensures proof of return or onward exit travel required by border control to deter illegal overstay.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4. Hotel Booking Confirmation -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-building-check"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Hotel Booking Confirmation</h5>
+                    <p class="small text-secondary mb-0">
+                        Validates lodging reservations or host accommodation documentation for immigration arrival cards.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 5. Travel Insurance Verification -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-shield-shaded"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Travel Insurance Verification</h5>
+                    <p class="small text-secondary mb-0">
+                        Confirms active emergency medical and trip protection policies mandatory for Schengen, UAE, and others.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 6. Vaccination Status Check -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-capsule"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Vaccination Status Check</h5>
+                    <p class="small text-secondary mb-0">
+                        Audits destination-mandated immunization compliance including Yellow Fever, Polio, and COVID-19 protocols.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 7. AI-Based Prediction -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">AI-Based Readiness Prediction</h5>
+                    <p class="small text-secondary mb-0">
+                        Employs a trained Scikit-learn Decision Tree model to classify travel preparedness with high precision.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 8. Automated Report Generation -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 card-hover p-4 bg-white border-0">
+                    <div class="feature-icon-badge mb-3">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy mb-2">Automated Report Generation</h5>
+                    <p class="small text-secondary mb-0">
+                        Generates BriefIQ-style AI summaries and downloadable PDF documentation with checklists and advice.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works (4 Steps) -->
+<section class="py-5 bg-white" id="how-it-works">
+    <div class="container py-4">
+        <div class="text-center max-w-xl mx-auto mb-5">
+            <span class="text-sky text-uppercase fw-bold fs-xs tracking-wider">Workflow</span>
+            <h2 class="fw-bold text-navy mt-1">How The System Works</h2>
+            <p class="text-secondary">Follow these simple steps to ensure you are fully prepared before heading out.</p>
+        </div>
+
+        <div class="row g-4 text-center">
+            <div class="col-md-6 col-lg-3">
+                <div class="p-4 border rounded-4 h-100 bg-light">
+                    <div class="step-number-circle">1</div>
+                    <h5 class="fw-bold text-navy mb-2">Create Account</h5>
+                    <p class="small text-secondary mb-0">Sign up or log in securely to access your personalized travel dashboard.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-4 border rounded-4 h-100 bg-light">
+                    <div class="step-number-circle">2</div>
+                    <h5 class="fw-bold text-navy mb-2">Enter Travel Details</h5>
+                    <p class="small text-secondary mb-0">Input your destination, dates, and documentation status across the 6 key factors.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-4 border rounded-4 h-100 bg-light">
+                    <div class="step-number-circle">3</div>
+                    <h5 class="fw-bold text-navy mb-2">AI Evaluates</h5>
+                    <p class="small text-secondary mb-0">Our trained Decision Tree algorithm processes the feature vector and detects gaps.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-4 border rounded-4 h-100 bg-light">
+                    <div class="step-number-circle">4</div>
+                    <h5 class="fw-bold text-navy mb-2">Get Results &amp; PDF</h5>
+                    <p class="small text-secondary mb-0">View your readiness score, actionable recommendations, and download the PDF report.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5 bg-light" id="contact">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <span class="text-sky text-uppercase fw-bold fs-xs tracking-wider">Contact &amp; Feedback</span>
+                        <h3 class="fw-bold text-navy mt-1">Get In Touch</h3>
+                        <p class="text-secondary small">Have questions regarding pre-travel compliance or this capstone project? Drop a message.</p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); alert('Thank you for contacting the TravelReady AI Team! Your message has been received.'); this.reset();">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Your Name</label>
+                                <input type="text" class="form-control" placeholder="e.g. Sarah Jenkins" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Your Email</label>
+                                <input type="email" class="form-control" placeholder="name@example.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold">Subject</label>
+                                <input type="text" class="form-control" placeholder="Travel readiness inquiry / Project feedback" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold">Message</label>
+                                <textarea class="form-control" rows="4" placeholder="Enter your inquiry..." required></textarea>
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <button type="submit" class="btn btn-sky px-4 py-2 rounded-pill text-white">
+                                    <i class="bi bi-send-fill me-1"></i> Send Inquiry
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up | TravelReady AI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                
+                <div class="text-center mb-4">
+                    <div class="brand-logo-badge mx-auto mb-3" style="width: 52px; height: 52px; font-size: 1.6rem;">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+                    <h3 class="fw-bold text-navy mb-1">Create Traveler Account</h3>
+                    <p class="text-secondary small">Register to track pre-departure audits and download AI reports</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('register') }}">
+                    
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label small fw-semibold">Full Name *</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-secondary"></i></span>
+                            <input type="text" class="form-control border-start-0" id="full_name" name="full_name" placeholder="e.g. John Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label small fw-semibold">Email Address *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-secondary"></i></span>
+                                <input type="email" class="form-control border-start-0" id="email" name="email" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label small fw-semibold">Phone Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-telephone text-secondary"></i></span>
+                                <input type="tel" class="form-control border-start-0" id="phone" name="phone" placeholder="+1 234 567 8900">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label for="password" class="form-label small fw-semibold">Password *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-secondary"></i></span>
+                                <input type="password" class="form-control border-start-0" id="password" name="password" placeholder="At least 6 characters" minlength="6" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="confirm_password" class="form-label small fw-semibold">Confirm Password *</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock-fill text-secondary"></i></span>
+                                <input type="password" class="form-control border-start-0" id="confirm_password" name="confirm_password" placeholder="Re-enter password" minlength="6" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-sky w-100 py-2 rounded-pill fw-semibold text-white">
+                        <i class="bi bi-person-check-fill me-1"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 pt-3 border-top small text-secondary">
+                    Already have an account? <a href="{{ url_for('login') }}" class="text-sky fw-bold text-decoration-none">Sign In here</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
