@@ -5,9 +5,8 @@ echo ======================================================================
 echo   TravelReady AI - Pre-Travel Readiness Prediction System
 echo ======================================================================
 echo.
-echo Starting Flask application on http://localhost:5000 ...
-echo Press Ctrl+C in this window to stop the server.
+echo Starting Flask web server on http://localhost:5000 ...
 echo.
-python app.py
+start "" "http://localhost:5000"
+"C:\Users\sai maha\AppData\Local\Programs\Python\Python314\python.exe" app.py
 pause
-

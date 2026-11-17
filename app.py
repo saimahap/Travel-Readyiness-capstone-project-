@@ -21,6 +21,7 @@ from pdf_generator import generate_pdf_report
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'travel_readiness_secret_key_aiml_2026')
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # Initialize Database on launch
 init_database()
